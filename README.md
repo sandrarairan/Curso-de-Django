@@ -448,3 +448,96 @@ Esto puede hacerse de dos formas: con admin.site.register(Profile) o creando una
 Editaremos el detalle para que sea igual de complejo que el detalle de Usuario y le agregaremos los datos del perfil para no tener que estar cambiando de urls. Usaremos fieldsets y admin.StackedInline.
 
 En la documentción de Django, https://docs.djangoproject.com/en/2.0/ref/contrib/admin/ podemos ver cómo funcionan los fieldsets.
+
+https://docs.djangoproject.com/en/2.2/ref/contrib/admin/
+
+## Creación del modelo de posts
+Para reflejar los cambios en la base de datos, siempre que se crea o se edita un modelo debemos cancelar el server, ejecutar makemigrations, migrate y luego de nuevo vovler a correr el servidor con runserver.
+Con respecto a las imágenes, Django por defecto no está hecho para servir la media, pero editando las urls logramos que se puedan mostrar. Para servir archivos de media, usamos MEDIA_ROOT y MEDIA_URLS.
+
+Reto de la clase:
+Crea el modelo de posts y registralo en el admin.
+
+https://docs.djangoproject.com/en/2.2/ref/models/fields/#foreignkey
+
+https://docs.djangoproject.com/en/2.2/ref/settings/#media-root
+(.env) ➜  platzigram git:(Creación-del-modelo-de-posts) ✗ python3 manage.py makemigrations
+
+(.env) ➜  platzigram git:(Creación-del-modelo-de-posts) ✗ python3 manage.py migrate
+
+
+# Templates, auth y middlewares
+## Templates y archivos estáticos
+Los templates quedarán definidos en un nuevo folder que llamaremos /templates/.
+
+El concepto de archivos estáticos en Django, son archivos que se usan a través de la aplicación para pintar los datos. Pueden ser archivos de imagen, audio y video, o archivos css y scripts js.
+
+Para servir archivos estáticos, nos apoyamos en STATIC_ROOT y STATIC_URLS.
+https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#extends
+
+## Templates-y-archivos-estáticos
+https://docs.djangoproject.com/en/2.2/topics/auth/default/#authentication-in-web-requests
+
+## Login
+Vamos a asegurarnos que para acceder a la aplicación tengamos una cuenta de usuario. Para esto vamos a ver el proceso de autenticación que django nos ofrece para crear la página de login de Platzigram.
+
+https://docs.djangoproject.com/en/2.2/topics/auth/default/#authentication-in-web-requests
+
+## Logout
+Completaremos el flujo de autenticación del usuario que iniciamos en la clase anterior agregando la funcionalidad de Logout. Ademas incorporamos algo de estilos al formulario de Login.
+
+https://docs.djangoproject.com/en/2.2/topics/auth/default/#how-to-log-a-user-out
+
+## Signup
+Crearemos el Registro de usuario a partir de la clase perfil, por lo que usaremos un formulario personalizado. Definiremos un nuevo Template para el formulario. Dejaremos que el browser se encargue de las validaciones generales. Sólo validaremos en python la coincidencia entre password y confirmación del password. Incluiremos una validación con try/catch para evitar que se dupliquen usuarios con mismo nombre.
+
+https://docs.djangoproject.com/en/2.2/topics/auth/default/#creating-users
+
+http://127.0.0.1:8000/users/signup/
+(.env) ➜  platzigram  python3 manage.py runserver
+
+## Middlewares
+Un middleware en Django es una serie de hooks y una API de bajo nivel que nos permiten modificar el objeto request antes de que llegue a la vista y response antes de que salga de la vista.
+
+Django dispone de los siguientes middlewares por defecto:
+
+SecurityMiddleware
+SessionMiddleware
+CommonMiddleware
+CsrfViewMiddleware
+AuthenticationMiddleware
+MessageMiddleware
+XFrameOptionsMiddleware
+Crearemos un middleware para redireccionar al usuario al perfil para que actualice su información cuando no haya definido aún biografía o avatar.
+
+
+https://docs.djangoproject.com/en/2.2/topics/http/middleware/
+
+
+# Forms
+## Formularios en Django
+La clase utilitaria para formularios de Django nos ayuda a resolver mucho del trabajo que se realiza de forma repetitiva. La forma de implementarla es muy similar a la implementación de la clase models.model.
+
+Algunas de las clases disponibles en Django al implementar form, son:
+
+BooleanField
+CharField
+ChoiceField
+TypedChoiceField
+DateField
+DateTimeField
+DecimalField
+EmailField
+FileField
+ImageField"
+
+https://docs.djangoproject.com/en/2.2/ref/forms/fields/
+
+https://docs.djangoproject.com/en/2.2/topics/forms/
+
+## Mostrando el form en el template
+Existen diferentes formas en las que se pueden mostrar los valores del form, estas son: as_table, as_p y as_ul. También se pueden mostrar campos de manera individual, incluso customizar las clases que se van a usar para mostrar los errores, etc. Refinaremos la apariencia del form a través de algunas refactorizaciones en el template.
+
+
+
+
