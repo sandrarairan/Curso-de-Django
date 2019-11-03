@@ -834,16 +834,14 @@ Crear un servicio
 Iniciar sesión como súper usuario: sudo su -
 Ir al directorio de los servicios: cd /etc/init
 Crear el servicio vim platzi.conf con el siguiente contenido:
-# platzi
 
-# description "Platzi Linux Service"
-# authon "Pablo Trinidad"
-
+```
 start on startup
 
 script
     exec /home/platzi/deploy/gunicorn_start
 end script
+```
 Iniciar servicio: service platzi start
 Por último regresamos al directorio que contiene el proyecto y ejecutamos: ./manage.py collectstatic
 
