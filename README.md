@@ -132,9 +132,15 @@ Manage.py
  "SE CREA UN NUEVO FOLDER POST"
  
  (.env) ➜  platzigram git:(Creación-de-la-primera-app) ✗ python3 manage.py runserver
+ http://127.0.0.1:8000/posts/
  
  ## Introducción al template system
 Template system de Django es una manera de presentar los datos usando HTML, está inspirado en Jinja2 y su sintaxis, por lo cual comparte muchas similitudes. Permite incluir alguna lógica de programación.
+
+Se crea una carpeta Templates
+
+https://docs.djangoproject.com/en/2.2/ref/templates/builtins/
+
 
 ## Patrones de diseño y Django
 Un patrón de diseño, en términos generales, es una solución reutilizable a un problema común.
@@ -451,6 +457,9 @@ En la documentción de Django, https://docs.djangoproject.com/en/2.0/ref/contrib
 
 https://docs.djangoproject.com/en/2.2/ref/contrib/admin/
 
+http://127.0.0.1:8000/admin/
+
+
 ## Creación del modelo de posts
 Para reflejar los cambios en la base de datos, siempre que se crea o se edita un modelo debemos cancelar el server, ejecutar makemigrations, migrate y luego de nuevo vovler a correr el servidor con runserver.
 Con respecto a las imágenes, Django por defecto no está hecho para servir la media, pero editando las urls logramos que se puedan mostrar. Para servir archivos de media, usamos MEDIA_ROOT y MEDIA_URLS.
@@ -464,6 +473,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/#media-root
 (.env) ➜  platzigram git:(Creación-del-modelo-de-posts) ✗ python3 manage.py makemigrations
 
 (.env) ➜  platzigram git:(Creación-del-modelo-de-posts) ✗ python3 manage.py migrate
+http://127.0.0.1:8000/admin/
 
 
 # Templates, auth y middlewares
@@ -475,13 +485,17 @@ El concepto de archivos estáticos en Django, son archivos que se usan a través
 Para servir archivos estáticos, nos apoyamos en STATIC_ROOT y STATIC_URLS.
 https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#extends
 
-## Templates-y-archivos-estáticos
+http://127.0.0.1:8000/posts/
+
+
 https://docs.djangoproject.com/en/2.2/topics/auth/default/#authentication-in-web-requests
 
 ## Login
 Vamos a asegurarnos que para acceder a la aplicación tengamos una cuenta de usuario. Para esto vamos a ver el proceso de autenticación que django nos ofrece para crear la página de login de Platzigram.
 
 https://docs.djangoproject.com/en/2.2/topics/auth/default/#authentication-in-web-requests
+http://127.0.0.1:8000/users/login/
+
 
 ## Logout
 Completaremos el flujo de autenticación del usuario que iniciamos en la clase anterior agregando la funcionalidad de Logout. Ademas incorporamos algo de estilos al formulario de Login.
@@ -538,6 +552,24 @@ https://docs.djangoproject.com/en/2.2/topics/forms/
 ## Mostrando el form en el template
 Existen diferentes formas en las que se pueden mostrar los valores del form, estas son: as_table, as_p y as_ul. También se pueden mostrar campos de manera individual, incluso customizar las clases que se van a usar para mostrar los errores, etc. Refinaremos la apariencia del form a través de algunas refactorizaciones en el template.
 
+
+https://docs.djangoproject.com/en/2.2/topics/forms/#working-with-form-templates
+
+http://127.0.0.1:8000/users/me/profile/
+
+## Model forms
+ModelForm es una manera más sencilla de crear formularios en Django y en el caso de nuestro proyecto, se adapta mucho mejor al modelo que ya tenemos.
+Lo usaremos para crear el formulario de posts.
+
+Aprovecharemos para refinar la funcionalidad en el navbar y conectar el feed con los posts.
+
+https://docs.djangoproject.com/en/2.2/topics/forms/modelforms/
+
+## Validación de formularios
+Para aprender a validar los campos de un formulario vamos a actualizar el registro de usuarios.
+Hasta este momento el script de validación del formulario Signup está escrito directamente en la vista, y a pesar de que no genera ningún error, puede convertirse en un problema, así que lo recomendable es separarlo. Crearemos un nuevo form con la clase forms.Form, también vamos a introducir un nuevo concepto relacionado con formularios: los widgets.
+
+Los widgets en Django, son una representación de elementos de HTML que pueden incluir ciertas validaciones. Por default todos los campos son requeridos. Los datos depurados se pueden consultar con self.cleaned_data['_nombre_del_field_']
 
 
 
